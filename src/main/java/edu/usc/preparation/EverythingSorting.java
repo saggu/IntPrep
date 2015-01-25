@@ -28,7 +28,7 @@ public class EverythingSorting {
 	public int[] MergeSort(int[] A) {
 
 		if(A.length <= 0) return null;
-		if(A.length <= 1) return A;
+		if(A.length == 1) return A;
 		
 		int[] left = new int[A.length / 2];
 		int[] right = new int[A.length - left.length];

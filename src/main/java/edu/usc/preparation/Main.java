@@ -24,13 +24,37 @@ public class Main {
 		//es.printArray(Heap.heapSort(A));
 		
 		
-		ArraysAndStrings as = new ArraysAndStrings();
+		//ArraysAndStrings as = new ArraysAndStrings();
 		
-		int[][] matrix = as.initialiseMatrix(5, 5);
+		/*int[][] matrix = as.initialiseMatrix(3, 3);
 		
 		as.printMatrix(matrix);
 		
-		as.printMatrixZigZagRightBottom(matrix);
+		as.printMatrixZigZagRightBottom(matrix);*/
+		
+		//System.out.println(String.valueOf(as.infixEvaluation("4-4*4/7+5")));
+		
+		//InfixPostfixEvaluator ipe = new InfixPostfixEvaluator();
+		
+		//String expression = "(3-2)+5-(7*9)";
+		
+		//System.out.println(ipe.evaluateInfixExpression(expression));
+		
+		int[][] grid = { {1,1,1,0,1,1,0,0,0,1,1,1,1},
+                {1,0,1,1,1,0,1,1,1,1,0,0,1},
+                {0,0,0,0,1,0,1,0,1,0,1,0,0},
+                {1,1,1,0,1,1,1,0,1,0,1,1,1},
+                {1,0,1,0,0,0,0,1,1,1,0,0,1},
+                {1,0,1,1,1,1,1,1,0,1,1,1,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1} };
+		
+		MazeRunner run = new MazeRunner(grid);
+		
+		run.traverse(0, 0);
+		System.out.println(run.toString());
+		
+		
 		
 		
 		

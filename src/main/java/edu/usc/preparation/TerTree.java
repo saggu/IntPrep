@@ -66,34 +66,34 @@ public class TerTree {
         if(root==null)
             return null;
         
-        if(value < root.value){
-            
+        if(value < root.value)
+        {
             root.left = delete(root.left,value);
         }
-        else if(value > root.value){
-            
+        else if(value > root.value)
+        {
             root.right = delete(root.right, value);
         }
-        else{
-            
-            if(root.right == null){
-                
+        else
+        {
+            if(root.right == null)
+            {
                 return root.left;
             }
-            if(root.left == null){
-                
+            if(root.left == null)
+            {
                 return root.right;
             }
             
-            if(root.middle != null){
-                
+            if(root.middle != null)
+            {
                 TerTree temp = root;
                 while(temp.middle.middle != null)
                     temp = temp.middle;
                 temp.middle = null;
-            
             }
-            else{
+            else
+            {
                 TerTree temp = root;
                 root.value = findMin(temp.right).value;
                 root.right = deleteMin(temp.right);

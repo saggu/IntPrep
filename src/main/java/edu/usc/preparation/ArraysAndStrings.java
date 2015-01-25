@@ -1,8 +1,12 @@
 package edu.usc.preparation;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
+import java.util.Stack;
+
 
 public class ArraysAndStrings {
+	
 
 	public void uniqueChars(String s) //prints whether the characters in the string are all unique
 	{
@@ -82,39 +86,18 @@ public class ArraysAndStrings {
 
 	public void replaceWith20(String str) //replace all the spaces in the string with %20
     {
-        int count=0;
+        StringBuilder sb = new StringBuilder(str.length());
         
-        for(int i =0;i<str.length();i++)
+        for(int i=0;i<str.length();i++)
         {
-            if(str.charAt(i) == ' ')
-            {
-                count++;
-            }
+        	if(str.charAt(i)==' ')
+        		sb.append("%20");
+        	else
+        		sb.append(str.charAt(i));        
         }
-        
-        char[] replace= new char[str.length() + (count-1)*3];
-        
-        int j= 0;
-        for(int i =0;i<str.length();i++)
-        {
-            
-            if(str.charAt(i) == ' ')
-            {
-                replace[j++] = '%';
-                //j++;
-                replace[j++] = '2';
-                //j++;
-                replace[j++] = '0';
-            }
-            else
-            {
-                replace[j++] = str.charAt(i);
-                //j++;
-            }
-        }
-        
-        System.out.print(replace);
+        System.out.println(sb.toString());
     }
+	
 
 	public void stringCompression(String s) //compresses a string aabbcc to a2b2c2
 	{
@@ -351,11 +334,7 @@ public class ArraysAndStrings {
 		{
 			return null;
 		}
-		//if(s.length() == 0)
-		//{
-			//perms.add("");
-			//return perms;
-		//}
+		
 		
 		char c = s.charAt(0);
 		//perms.add(String.valueOf(c));
@@ -445,5 +424,92 @@ public class ArraysAndStrings {
 		return sb.toString();
 	}
 	
+	
+	
+	
+	public double infixEvaluation(String expression)
+	{
+		expression = expression.replaceAll("[\t\n ]", "")+"=";
+		String operator = "*/+-=";
+		StringTokenizer tokenizer = new StringTokenizer(expression,operator,true);
+		Stack<String> operatorStack = new Stack<String>();
+		Stack<String> valueStack= new Stack<String>();
+		
+		while(tokenizer.hasMoreTokens())
+		{
+			String token = tokenizer.nextToken();
+			
+			if(operator.indexOf(token) < 0)
+			{
+				valueStack.push(token);
+			}
+			else
+			{
+				operatorStack.push(token);
+			}
+			resolve(valueStack, operatorStack);
+		}
+		
+		String last = valueStack.pop();
+		return Double.parseDouble(last);
+	}
+	
+	public void resolve(Stack<String> values, Stack<String> operators)
+	{
+		while(operators.size() >=2)
+		{
+			String first = operators.pop();
+			String second = operators.pop();
+			
+			if(getPriority(first) < getPriority(second))
+			{
+				operators.push(second);
+				operators.push(first);
+				return;
+			}
+			else
+			{
+				String firstValue = values.pop();
+				String secondValue = values.pop();
+				values.push(getResults(secondValue, second,firstValue));
+				operators.push(first);
+			}
+			
+		}
+	}
+	
+	public String getResults(String first, String operator, String second)
+	{
+		System.out.println("Performing "+
+                first+operator+second);
+		Double operand1 = Double.parseDouble(first);
+		Double operand2 = Double.parseDouble(second);
+		
+		if(operator.equals("*"))
+			return "" + (operand1*operand2);
+		if(operator.equals("/"))
+			return "" + (operand1/operand2);
+		if(operator.equals("+"))
+			return "" + (operand1+operand2);
+		if(operator.equals("-"))
+			return "" + (operand1-operand2);
+		
+		return null;
+		
+	}
+	
+	public int getPriority(String operator)
+	{
+		//if(operator.equals("(") || operator.equals(")"))
+			//return 1;
+		if(operator.equals("*") || operator.equals("/"))
+			return 2;
+		if(operator.equals("+") || operator.equals("-"))
+			return 3;
+		if(operator.equals("="))
+			return 4;
+		
+		return Integer.MIN_VALUE;
+	}
 }
 

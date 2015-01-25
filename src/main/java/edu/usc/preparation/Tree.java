@@ -317,7 +317,7 @@ public class Tree {
 			 
 			 if(t2==null) return true;
 			 
-			 return subTree(t2,t1);
+			 return subTree(t1,t2);
 		 }
 		 
 		 
